@@ -1,0 +1,12 @@
+<div class="control-group">
+  {% set error = errors.language %}
+  <label class="ecai-label" for="field-{{ field_name }}">{{ _("DC_Format") }}</label>
+  <div class="controls">
+    <select id="field-{{ field_name }}" name="{{ field_name }}" data-module="autocomplete" class="ecai-control">
+      {% for value, label in h.get_DC_FORMAT() %}
+        <option value="{{ value }}"{% if data.get(field_name) == value %} selected="selected"{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    {% if error %}<span class="error-block">{{ error }}</span>{% endif %}
+  </div>
+</div>

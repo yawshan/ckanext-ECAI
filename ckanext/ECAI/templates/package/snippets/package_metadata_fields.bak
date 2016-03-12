@@ -1,0 +1,192 @@
+{% import 'macros/form.html' as form %}
+
+{# Remove 'free extras' from the package form. If you're using
+convert_to/from_extras() as we are with our 'custom_text' field below then
+you need to remove free extras from the form, or editing your custom field
+won't work. #}
+
+{% if data.get('extras', [])|length %}
+  {% set extras_dict = h.extras_to_dict(data) %}
+{% else %}
+  {% set extras_dict = data %}
+{% endif %}
+
+<fieldset>
+
+  <legend>1. Dublin Core Metadata</legend>
+
+{% block package_metadata_fields %}
+
+   {% block DC_metadata_Title %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Title' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Title_Alternative' %}
+
+{#    {{ form.input('DC_Title', label=_('DC_Title'), id='field-DC_Title', placeholder=_(''), value=extras_dict.get('DC_Title'), error=errors.DC_Title, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Title_Alternative', label=_('DC_Title_Alternative'), id='field-DC_Title_Alternative', placeholder=_(''), value=extras_dict.get('DC_Title_Alternative'), error=errors.DC_Title_Alternative, classes=['control-medium','ecai-label']) }} #}
+  {% endblock %}
+  
+  {% block DC_metadata_Creator %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Creator_PersonalName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Creator_PersonalName_Address' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Creator_CorporateName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Creator_CorporateName_Address' %}
+
+{#
+    {{ form.input('DC_Creator_PersonalName', label=_('DC_Creator_PersonalName'), id='field-DC_Creator_PersonalName', placeholder=_(''), value=extras_dict.get('DC_Creator_PersonalName'), error=errors.DC_Creator_PersonalName, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Creator_PersonalName_Address', label=_('DC_Creator_PersonalName_Address'), id='field-DC_Creator_PersonalName_Address', placeholder=_('joe@example.com'), value=extras_dict.get('DC_Creator_PersonalName_Address'), error=errors.DC_Creator_PersonalName_Address, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Creator_CorporateName', label=_('DC_Creator_CorporateName'), id='field-DC_Creator_CorporateName', placeholder=_(''), value=extras_dict.get('DC_Creator_CorporateName'), error=errors.DC_Creator_CorporateName, classes=['control-medium','ecai-label']) }}
+   {{ form.input('DC_Creator_CorporateName_Address', label=_('DC_Creator_CorporateName_Address'), id='field-DC_Creator_CorporateName_Address', placeholder=_('joe@example.com'), value=extras_dict.get('DC_Creator_CorporateName_Address'), error=errors.DC_Creator_CorporateName_Address, classes=['control-medium','ecai-label']) }}
+#}
+  {% endblock %}
+
+    
+
+  {% block DC_Identification%}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Subject_Specific' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Description' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Description_History' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Identifier' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Source' %}
+	{% snippet 'snippets/language_list.html', data=data, errors=errors, field_name='DC_Language' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Rights' %}
+        {% snippet 'snippets/type_list.html', data=data, errors=errors, field_name='DC_Type' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Type_Specific' %}
+	{% snippet 'snippets/format_list.html', data=data, errors=errors, field_name='DC_Format' %}    
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Format_Specific' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Format_Size' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Relation' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Relation_Type' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Relation_Identifier' %}
+
+{#
+    {{ form.input('DC_Subject_Specific', label=_('DC_Subject_Specific'), id='field-DC_Subject_Specific', placeholder=_(''), value=extras_dict.get('DC_Subject_Specific'), error=errors.DC_Subject_Specific, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Description', label=_('DC_Description'), id='field-DC_Description', placeholder=_(''), value=extras_dict.get('DC_Description'), error=errors.DC_Description, classes=['control-medium','ecai-label']) }}  
+    {{ form.input('DC_Description_History', label=_('DC_Description_History'), id='field-DC_Description_History', placeholder=_(''), value=extras_dict.get('DC_Description_History'), error=errors.DC_Description_History, classes=['control-medium','ecai-label']) }}  
+    {{ form.input('DC_Identifier', label=_('DC_Identifier'), id='field-DC_Identifier', placeholder=_(''), value=extras_dict.get('DC_Identifier'), error=errors.DC_Identifier, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Source', label=_('DC_Source'), id='field-DC_Source', placeholder=_(''), value=extras_dict.get('DC_Source'), error=errors.DC_Source, classes=['control-medium','ecai-label']) }}
+    {% snippet 'snippets/language_list.html', data=data, errors=errors, field_name='DC_Language' %}
+    {{ form.input('DC_Rights', label=_('DC_Rights'), id='field-DC_Rights', placeholder=_(''), value=extras_dict.get('DC_Rights'), error=errors.DC_Rights, classes=['control-medium','ecai-label']) }}
+    {% snippet 'snippets/type_list.html', data=data, errors=errors, field_name='DC_Type' %}
+    {{ form.input('DC_Type_Specific', label=_('DC_Type_Specific'), id='field-DC_Type_Specific', placeholder=_(''), value=extras_dict.get('DC_Type_Specific'), error=errors.DC_Type_Specific, classes=['control-medium','ecai-label']) }}
+    {% snippet 'snippets/format_list.html', data=data, errors=errors, field_name='DC_Format' %}    
+    {{ form.input('DC_Format_Specific', label=_('DC_Format_Specific'), id='field-DC_Format_Specific', placeholder=_(''), value=extras_dict.get('DC_Format_Specific'), error=errors.DC_Format_Specific, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Format_Size', label=_('DC_Format_Size'), id='field-DC_Format_Size', placeholder=_(''), value=extras_dict.get('DC_Format_Size'), error=errors.DC_Format_Size, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Relation', label=_('DC_Relation'), id='field-DC_Relation', placeholder=_(''), value=extras_dict.get('DC_Relation'), error=errors.DC_Relation, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Relation_Type', label=_('DC_Relation_Type'), id='field-DC_Relation_Type', placeholder=_(''), value=extras_dict.get('DC_Relation_Type'), error=errors.DC_Relation_Type, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Relation_Identifier', label=_('DC_Relation_Identifier'), id='field-DC_Relation_Identifier', placeholder=_(''), value=extras_dict.get('DC_Relation_Identifier'), error=errors.DC_Relation_Identifier, classes=['control-medium','ecai-label']) }}
+#}
+	{% endblock %}
+	
+  {% block DC_Contributor_Publisher%}
+
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Publisher' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Publisher_Address' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Contributor_CorporateName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Contributor_CorporateName_Address' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Contributor_PersonalName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Contributor_PersonalName_Address' %}
+
+{#
+	{{ form.input('DC_Publisher', label=_('DC_Publisher'), id='field-DC_Publisher', placeholder=_(''), value=extras_dict.get('DC_Publisher'), error=errors.DC_Publisher, classes=['control-medium','ecai-label']) }}
+	{{ form.input('DC_Publisher_Address', label=_('DC_Publisher_Address'), id='field-DC_Publisher_Address', placeholder=_(''), value=extras_dict.get('DC_Publisher_Address'), error=errors.DC_Publisher_Address, classes=['control-medium','ecai-label']) }}
+	{{ form.input('DC_Contributor_CorporateName', label=_('DC_Contributor_CorporateName'), id='field-DC_Contributor_CorporateName', placeholder=_(''), value=extras_dict.get('DC_Contributor_CorporateName'), error=errors.DC_Contributor_CorporateName, classes=['control-medium','ecai-label']) }}
+	{{ form.input('DC_Contributor_CorporateName_Address', label=_('DC_Contributor_CorporateName_Address'), id='field-DC_Contributor_CorporateName_Address', placeholder=_(''), value=extras_dict.get('DC_Contributor_CorporateName_Address'), error=errors.DC_Contributor_CorporateName_Address, classes=['control-medium','ecai-label']) }}
+	{{ form.input('DC_Contributor_PersonalName', label=_('DC_Contributor_PersonalName'), id='field-DC_Contributor_PersonalName', placeholder=_(''), value=extras_dict.get('DC_Contributor_PersonalName'), error=errors.DC_Contributor_PersonalName, classes=['control-medium','ecai-label']) }}
+	{{ form.input('DC_Contributor_PersonalName_Address', label=_('DC_Contributor_PersonalName_Address'), id='field-DC_Contributor_PersonalName_Address', placeholder=_(''), value=extras_dict.get('DC_Contributor_PersonalName_Address'), error=errors.DC_Contributor_PersonalName_Address, classes=['control-medium','ecai-label']) }}
+#}
+  {% endblock %}
+	
+  {% block DC_Date%}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_Created', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_DataGathered', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_Valid', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_LastModified', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_Issued', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_Available', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_Accepted', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Date_Acquired', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+{#
+    {{ form.input('DC_Date_Created', label=_('DC_Date_Created'), id='field-DC_Date_Created', placeholder=_(''), value=extras_dict.get('DC_Date_Created'), error=errors.DC_Date_Created, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Date_DataGathered', label=_('DC_Date_DataGathered'), id='field-DC_Date_DataGathered', placeholder=_(''), value=extras_dict.get('DC_Date_DataGathered'), error=errors.DC_Date_DataGathered, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Date_Valid', label=_('DC_Date_Valid'), id='field-DC_Date_Valid', placeholder=_(''), value=extras_dict.get('DC_Date_Valid'), error=errors.DC_Date_Valid, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Date_LastModified', label=_('DC_Date_LastModified'), id='field-DC_Date_LastModified', placeholder=_(''), value=extras_dict.get('DC_Date_LastModified'), error=errors.DC_Date_LastModified, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Date_Issued', label=_('DC_Date_Issued'), id='field-DC_Date_Issued', placeholder=_(''), value=extras_dict.get('DC_Date_Issued'), error=errors.DC_Date_Issued, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Date_Available', label=_('DC_Date_Available'), id='field-DC_Date_Available', placeholder=_(''), value=extras_dict.get('DC_Date_Available'), error=errors.DC_Date_Available, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Date_Accepted', label=_('DC_Date_Accepted'), id='field-DC_Date_Accepted', placeholder=_(''), value=extras_dict.get('DC_Date_Accepted'), error=errors.DC_Date_Accepted, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Date_Acquired', label=_('DC_Date_Acquired'), id='field-DC_Date_Acquired', placeholder=_(''), value=extras_dict.get('DC_Date_Acquired'), error=errors.DC_Date_Acquired, classes=['control-medium','ecai-label']) }}	
+#}  
+
+{% endblock %}
+  
+  {% block DC_Coverage%}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_X_min' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_X_max' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Y_min' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Y_max' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_T_Early' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_T_Late' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_PeriodName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_PlaceName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Spatial_Resolution' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Spatial_Aggregation' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Spatial_Georeference' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Temporal_Precision' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Temporal_Interval' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Temporal_Aggregation' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_AlternativeMetadata' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Coverage_Notes' %}
+
+{#
+    {{ form.input('DC_Coverage_X_min', label=_('DC_Coverage_x_min'), id='field-DC_Coverage_x_min', placeholder=_(''), value=extras_dict.get('DC_Coverage_x_min'), error=errors.DC_Coverage_x_min, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Coverage_X_max', label=_('DC_Coverage_x_max'), id='field-DC_Coverage_x_max', placeholder=_(''), value=extras_dict.get('DC_Coverage_x_max'), error=errors.DC_Coverage_x_max, classes=['control-medium','ecai-label']) }}      
+    {{ form.input('DC_Coverage_Y_min', label=_('DC_Coverage_y_min'), id='field-DC_Coverage_y_min', placeholder=_(''), value=extras_dict.get('DC_Coverage_y_min'), error=errors.DC_Coverage_y_min, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Coverage_Y_max', label=_('DC_Coverage_y_max'), id='field-DC_Coverage_y_max', placeholder=_(''), value=extras_dict.get('DC_Coverage_y_max'), error=errors.DC_Coverage_y_max, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Coverage_T_Early', label=_('DC_Coverage_t_early'), id='field-DC_Coverage_t_early', placeholder=_(''), value=extras_dict.get('DC_Coverage_t_early'), error=errors.DC_Coverage_t_early, classes=['control-medium','ecai-label']) }}      
+    {{ form.input('DC_Coverage_T_Late', label=_('DC_Coverage_t_late'), id='field-DC_Coverage_t_late', placeholder=_(''), value=extras_dict.get('DC_Coverage_t_late'), error=errors.DC_Coverage_t_late, classes=['control-medium','ecai-label']) }}      
+    {{ form.input('DC_Coverage_PeriodName', label=_('DC_Coverage_PeriodName'), id='field-DC_Coverage_PeriodName', placeholder=_(''), value=extras_dict.get('DC_Coverage_PeriodName'), error=errors.DC_Coverage_PeriodName, classes=['control-medium','ecai-label']) }}          
+	{{ form.input('DC_Coverage_PlaceName', label=_('DC_Coverage_PlaceName'), id='field-DC_Coverage_PlaceName', placeholder=_(''), value=extras_dict.get('DC_Coverage_PlaceName'), error=errors.DC_Coverage_PlaceName, classes=['control-medium','ecai-label']) }}      	
+	{{ form.input('DC_Coverage_Spatial_Resolution', label=_('DC_Coverage_Spatial_Resolution'), id='field-DC_Coverage_Spatial_Resolution', placeholder=_(''), value=extras_dict.get('DC_Coverage_Spatial_Resolution'), error=errors.DC_Coverage_Spatial_Resolution, classes=['control-medium','ecai-label']) }}      
+	{{ form.input('DC_Coverage_Spatial_Aggregation', label=_('DC_Coverage_Spatial_Aggregation'), id='field-DC_Coverage_Spatial_Aggregation', placeholder=_(''), value=extras_dict.get('DC_Coverage_Spatial_Aggregation'), error=errors.DC_Coverage_Spatial_Aggregation, classes=['control-medium','ecai-label']) }}      
+	{{ form.input('DC_Coverage_Spatial_Georeference', label=_('DC_Coverage_Spatial_Georeference'), id='field-DC_Coverage_Spatial_Georeference', placeholder=_(''), value=extras_dict.get('DC_Coverage_Spatial_Georeference'), error=errors.DC_Coverage_Spatial_Georeference, classes=['control-medium','ecai-label']) }}      
+	{{ form.input('DC_Coverage_Temporal_Precision', label=_('DC_Coverage_Temporal_Resolution'), id='field-DC_Coverage_Temporal_Resolution', placeholder=_(''), value=extras_dict.get('DC_Coverage_Temporal_Resolution'), error=errors.DC_Coverage_Temporal_Resolution, classes=['control-medium','ecai-label']) }}      
+    {{ form.input('DC_Coverage_Temporal_Interval', label=_('DC_Coverage_Temporal_Interval'), id='field-DC_Coverage_Temporal_Interval', placeholder=_(''), value=extras_dict.get('DC_Coverage_Temporal_Interval'), error=errors.DC_Coverage_Temporal_Interval, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Coverage_Temporal_Aggregation', label=_('DC_Coverage_Temporal_Aggregation'), id='field-DC_Coverage_Temporal_Aggregation', placeholder=_(''), value=extras_dict.get('DC_Coverage_Temporal_Aggregation'), error=errors.DC_Coverage_Temporal_Aggregation, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Coverage_AlternativeMetadata', label=_('DC_Coverage_AlternativeMetadata'), id='field-DC_Coverage_AlternativeMetadata', placeholder=_(''), value=extras_dict.get('DC_Coverage_AlternativeMetadata'), error=errors.DC_Coverage_AlternativeMetadata, classes=['control-medium','ecai-label']) }}
+    {{ form.input('DC_Coverage_Notes', label=_('DC_Coverage_Notes'), id='field-DC_Coverage_Notes', placeholder=_(''), value=extras_dict.get('DC_Coverage_Notes'), error=errors.DC_Coverage_Notes, classes=['control-medium','ecai-label']) }}
+#}
+  {% endblock %}    
+</fieldset>
+
+<fieldset>
+	<legend>2. ECAI Metadata</legend>
+  {% block ECAI%}
+	{% snippet 'snippets/team_list.html', data=data, errors=errors, field_name='ECAI_Team' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Theme' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Notes' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_UseRestrictions' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Content' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Expert' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Expert_Commentary' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Expert_InternalNotes' %}
+{#
+	{% snippet 'snippets/team_list.html', data=data, errors=errors, field_name='ECAI_Team' %}
+	{{ form.input('ECAI_Theme', label=_('ECAI_Theme'), id='field-ECAI_Theme', placeholder=_(''), value=extras_dict.get('ECAI_Theme'), error=errors.ECAI_Theme, classes=['control-medium','ecai-label']) }}
+	{{ form.input('ECAI_Notes', label=_('ECAI_Notes'), id='field-ECAI_Notes', placeholder=_(''), value=extras_dict.get('ECAI_Notes'), error=errors.ECAI_Notes, classes=['control-medium','ecai-label']) }}
+	{{ form.input('ECAI_UseRestrictions', label=_('ECAI_UseRestrictions'), id='field-ECAI_UseRestrictions', placeholder=_(''), value=extras_dict.get('ECAI_UseRestrictions'), error=errors.ECAI_UseRestrictions, classes=['control-medium','ecai-label']) }}
+	{{ form.input('ECAI_Content', label=_('ECAI_Content'), id='field-ECAI_Content', placeholder=_(''), value=extras_dict.get('ECAI_Content'), error=errors.ECAI_Content, classes=['control-medium','ecai-label']) }}
+	{{ form.input('ECAI_Expert', label=_('ECAI_Expert'), id='field-ECAI_Expert', placeholder=_(''), value=extras_dict.get('ECAI_Expert'), error=errors.ECAI_Expert, classes=['control-medium','ecai-label']) }}
+	{{ form.input('ECAI_Expert_Commentary', label=_('ECAI_Expert_Commentary'), id='field-ECAI_Expert_Commentary', placeholder=_(''), value=extras_dict.get('ECAI_Expert_Commentary'), error=errors.ECAI_Expert_Commentary, classes=['control-medium','ecai-label']) }}
+	{{ form.input('ECAI_Expert_InternalNotes', label=_('ECAI_Expert_InternalNotes'), id='field-ECAI_Expert_InternalNotes', placeholder=_(''), value=extras_dict.get('ECAI_Expert_InternalNotes'), error=errors.ECAI_Expert_InternalNotes, classes=['control-medium','ecai-label']) }}	
+#}
+  {% endblock %}    
+</fieldset>
+  {#% block package_metadata_fields_custom %}
+    {% block custom_fields %}
+      {% snippet 'snippets/custom_form_fields.html', extras=data.extras, errors=errors, limit=2 %}
+    {% endblock %}
+  {% endblock %}
+
+  {% block dataset_fields %}
+  {% endblock %#}
+{% resource 'ecai/styles/ecai.css' %}
+{% endblock %}

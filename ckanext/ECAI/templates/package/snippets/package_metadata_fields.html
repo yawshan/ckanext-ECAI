@@ -1,0 +1,125 @@
+{% import 'macros/form.html' as form %}
+
+{# Remove 'free extras' from the package form. If you're using
+convert_to/from_extras() as we are with our 'custom_text' field below then
+you need to remove free extras from the form, or editing your custom field
+won't work. #}
+
+{% if data.get('extras', [])|length %}
+  {% set extras_dict = h.extras_to_dict(data) %}
+{% else %}
+  {% set extras_dict = data %}
+{% endif %}
+
+<fieldset>
+
+  <legend>1. Dublin Core Metadata</legend>
+
+{% block package_metadata_fields %}
+
+   {% block DC_metadata_Title %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='DC_Title', field_name='DC_Title' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='DC_Title_Alternative', field_name='DC_Title_Alternative' %}
+  {% endblock %}
+  
+  {% block DC_metadata_Creator %}
+	<fieldset>
+	  <legend>DC_Creator Items</legend>
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='PersonName', field_name='DC_Creator_PersonalName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='PersonName_Address', field_name='DC_Creator_PersonalName_Address' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='CorporateName', field_name='DC_Creator_CorporateName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='CorporateName_Address', field_name='DC_Creator_CorporateName_Address' %}
+	</fieldset>
+  {% endblock %}
+
+    
+
+  {% block DC_Identification%}
+	<fieldset>
+	   <legend>DC_Identification Items</legend>
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Subject_Specific' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Description' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Description_History' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Identifier' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Source' %}
+	{% snippet 'snippets/language_list.html', data=data, errors=errors, field_name='DC_Language' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Rights' %}
+        {% snippet 'snippets/type_list.html', data=data, errors=errors, field_name='DC_Type' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Type_Specific' %}
+	{% snippet 'snippets/format_list.html', data=data, errors=errors, field_name='DC_Format' %}    
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Format_Specific' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Format_Size' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Relation' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Relation_Type' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='DC_Relation_Identifier' %}
+	</fieldset>
+  {% endblock %}
+	
+  {% block DC_Contributor_Publisher%}
+	<fieldset>
+	   <legend>DC_Publisher Items</legend>
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Publisher', field_name='DC_Publisher' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Publisher_Address', field_name='DC_Publisher_Address' %}
+	</fieldset>
+	<fieldset>
+	   <legend>DC_Contributor Items</legend>
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='CorporateName', field_name='DC_Contributor_CorporateName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='CorporateName_Address', field_name='DC_Contributor_CorporateName_Address' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='PersonalName', field_name='DC_Contributor_PersonalName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='PersonalName_Address', field_name='DC_Contributor_PersonalName_Address' %}
+	</fieldset>
+  {% endblock %}
+	
+  {% block DC_Date%}
+	<fieldset>
+	   <legend>DC_Date Items</legend>
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Created', field_name='DC_Date_Created', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='DataGathered', field_name='DC_Date_DataGathered', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Valid', field_name='DC_Date_Valid', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='LastModified', field_name='DC_Date_LastModified', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Issued', field_name='DC_Date_Issued', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Available', field_name='DC_Date_Available', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Accepted', field_name='DC_Date_Accepted', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Acquired', field_name='DC_Date_Acquired', placeholder='ISO-Date eg.2010-01-01T00:00:00(Z)' %}
+	</fieldset>
+  {% endblock %}
+  
+  {% block DC_Coverage%}
+	<fieldset>
+	   <legend>DC_Coverage Items</legend>
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='X_min', field_name='DC_Coverage_X_min' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='X_max', field_name='DC_Coverage_X_max' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Y_min', field_name='DC_Coverage_Y_min' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Y_max', field_name='DC_Coverage_Y_max' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='T_Early', field_name='DC_Coverage_T_Early' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='T_Late', field_name='DC_Coverage_T_Late' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='PeriodName', field_name='DC_Coverage_PeriodName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='PlaceName', field_name='DC_Coverage_PlaceName' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Spatial_Resolution', field_name='DC_Coverage_Spatial_Resolution' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Spatial_Aggregation', field_name='DC_Coverage_Spatial_Aggregation' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Spatial_Georeference', field_name='DC_Coverage_Spatial_Georeference' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Temporal_Precision', field_name='DC_Coverage_Temporal_Precision' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Temporal_Interval', field_name='DC_Coverage_Temporal_Interval' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Temporal_Aggregation', field_name='DC_Coverage_Temporal_Aggregation' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='AlternativeMetadata', field_name='DC_Coverage_AlternativeMetadata' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, label_name='Notes', field_name='DC_Coverage_Notes' %}
+	</fieldset>
+  {% endblock %}    
+</fieldset>
+
+<fieldset>
+	<legend>2. ECAI Metadata</legend>
+  {% block ECAI%}
+	{% snippet 'snippets/team_list.html', data=data, errors=errors, field_name='ECAI_Team' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Theme' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Notes' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_UseRestrictions' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Content' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Expert' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Expert_Commentary' %}
+	{% snippet 'snippets/ecai_md.html', data=data, errors=errors, field_name='ECAI_Expert_InternalNotes' %}
+  {% endblock %}    
+</fieldset>
+
+{% resource 'ecai/styles/ecai.css' %}
+{% endblock %}

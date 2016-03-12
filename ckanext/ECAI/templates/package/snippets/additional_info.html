@@ -1,0 +1,449 @@
+{% ckan_extends %}
+
+{% if pkg_dict.get('extras', [])|length %}
+  {% set extras_dict = h.extras_to_dict(pkg_dict) %}
+{% else %}
+  {% set extras_dict = pkg_dict %}
+{% endif %}
+
+{% block package_additional_info %}
+	{%if  pkg_dict.DC_Title %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Title") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Title}}</td>
+	  </tr>
+        {% endif %}
+
+	{%if  pkg_dict.DC_Title_Alternative %}
+	 <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Title_Alternative") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Title_Alternative}}</td>
+	  </tr>
+        {% endif %}
+
+	{%if  pkg_dict.DC_Creator_PersonalName %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Creator_PersonalName") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Creator_PersonalName}}</td>
+	  </tr>
+        {% endif %}
+
+        {% if pkg_dict.DC_Creator_PersonalName_Address %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Creator_PersonalName_Address") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Creator_PersonalName_Address}}</td>
+	  </tr>
+        {% endif %}
+
+         {% if pkg_dict.DC_Creator_CorporateName %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Creator_CorporateName") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Creator_CorporateName}}</td>
+	  </tr>
+        {% endif %}
+
+         {% if pkg_dict.DC_Creator_CorporateName_Address %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Creator_CorporateName_Address") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Creator_CorporateName_Address}}</td>
+	  </tr>
+        {% endif %}
+		
+					{#------ Identification -------#}		
+		
+         {% if pkg_dict.DC_Subject_Specific %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Subject_Specific") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Subject_Specific}}</td>
+	  </tr>
+	{% endif %}
+		
+         {% if pkg_dict.DC_Description %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Description") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Description}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Description_History %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Description_History") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Description_History}}</td>
+	  </tr>
+	  {% endif %}
+		
+         {% if pkg_dict.DC_Identifier %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Identifier") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Identifier}}</td>
+	  </tr>
+          {% endif %}
+		
+         {% if pkg_dict.DC_Source %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Source") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Source}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Language %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Language") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Language}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Rights %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Rights") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Rights}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Type %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Type") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Type}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Type_Specific %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Type_Specific") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Type_Specific}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Format %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Format") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Format}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Format_Specific %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Format_Specific") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Format_Specific}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Format_Size %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Format_Size") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Format_Size}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Relation %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Relation") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Relation}}</td>
+	  </tr>
+         {% endif %}
+
+         {% if pkg_dict.DC_Relation_Type %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Relation_Type") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Relation_Type}}</td>
+	  </tr>
+         {% endif %}
+		
+         {% if pkg_dict.DC_Relation_Identifier %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Relation_Identifier") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Relation_Identifier}}</td>
+	  </tr>
+         {% endif %}
+		
+		
+					{#------ Publisher & Contributor -------#}
+					
+					
+	{% if pkg_dict.DC_Publisher %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Publisher") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Publisher }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.DC_Publisher_Address %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Publisher_Address") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Publisher_Address }}</td>
+	  </tr>
+        {% endif %}
+	
+	{% if pkg_dict.DC_Contributor_CorporateName %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Contributor_CorporateName") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Contributor_CorporateName }}</td>
+	  </tr>
+        {% endif %}
+	
+	{% if pkg_dict.DC_Contributor_CorporateName_Address %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Contributor_CorporateName_Address") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Contributor_CorporateName_Address }}</td>
+	  </tr>
+        {% endif %}
+	
+	{% if pkg_dict.DC_Contributor_PersonalName %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Contributor_PersonalName") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Contributor_PersonalName }}</td>
+	  </tr>
+        {% endif %}
+	
+	{% if pkg_dict.DC_Contributor_PersonalName_Address %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Contributor_PersonalName_Address") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Contributor_PersonalName_Address }}</td>
+	  </tr>
+        {% endif %}
+		
+		
+				    {#------ Date -------#}
+					
+					
+	{% if pkg_dict.DC_Date_Created %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_Created") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_Created }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Date_DataGathered %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_DataGathered") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_DataGathered }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Date_Valid %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_Valid") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_Valid }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Date_LastModified %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_LastModified") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_LastModified }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Date_Issued %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_Issued") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_Issued }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Date_Available %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_Available") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_Available }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Date_Accepted %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_Accepted") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_Accepted }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Date_Acquired %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Date_Acquired") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Date_Acquired }}</td>
+	  </tr>
+        {% endif %}		
+		
+		
+					{#------ Coverage -------#}		
+		
+		
+	{% if pkg_dict.DC_Coverage_X_min %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_X_min") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_X_min }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_X_max %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_X_max") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_X_max }}</td>
+	  </tr>
+        {% endif %}
+       
+	{% if pkg_dict.DC_Coverage_Y_min %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Y_min") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Y_min }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.DC_Coverage_Y_max %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Y_max") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Y_max }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.DC_Coverage_T_Early %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_T_Early") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_T_Early }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_T_Late %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_T_Late") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_T_Late }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.DC_Coverage_PeriodName %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_PeriodName") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_PeriodName }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_PlaceName %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_PlaceName") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_PlaceName }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_Spatial_Resolution %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Spatial_Resolution") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Spatial_Resolution }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_Spatial_Aggregation %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Spatial_Aggregation") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Spatial_Aggregation }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_Spatial_Georeference %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Spatial_Georeference") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Spatial_Georeference }}</td>
+	  </tr>
+        {% endif %}		
+	   
+	{% if pkg_dict.DC_Coverage_Temporal_Precision %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Temporal_Precision") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Temporal_Precision }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.DC_Coverage_Temporal_Interval %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Temporal_Interval") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Temporal_Interval }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_Temporal_Aggregation %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Temporal_Aggregation") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Temporal_Aggregation }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_AlternativeMetadata %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_AlternativeMetadata") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_AlternativeMetadata }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.DC_Coverage_Notes %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("DC_Coverage_Notes") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.DC_Coverage_Notes }}</td>
+	  </tr>
+        {% endif %}
+
+					{#------ ECAI Metadata -------#}
+					
+	{% if pkg_dict.ECAI_Team %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_Team") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_Team }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.ECAI_Theme %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_Theme") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_Theme }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.ECAI_Notes %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_Notes") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_Notes }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.ECAI_UseRestrictions %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_UseRestrictions") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_UseRestrictions }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.ECAI_Content %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_Content") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_Content }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.ECAI_Expert %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_Expert") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_Expert }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.ECAI_Expert_Commentary %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_Expert_Commentary") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_Expert_Commentary }}</td>
+	  </tr>
+        {% endif %}
+		
+	{% if pkg_dict.ECAI_Expert_InternalNotes %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("ECAI_Expert_InternalNotes") }}</th>
+	     <td class="dataset-details" property="rdf:value">{{ pkg_dict.ECAI_Expert_InternalNotes }}</td>
+	  </tr>
+        {% endif %}
+
+	{% if pkg_dict.spatial %}
+	  <tr>
+	     <th scope="row" class="dataset-label" property="rdfs:label">{{ _("spatial") }}</th>
+	     <td class="dataset-details" property="rdf:value">
+		    <a id="showspatial">Show more</a>
+		    <p id="spatialcontent">{{ pkg_dict.spatial }}</p>
+	     </td>
+	  </tr>
+        {% endif %}
+	{% resource 'ecai/package_form' %} 
+      {% endblock %}

@@ -1,0 +1,19 @@
+{% ckan_extends %}
+
+{% if data.get('extras', [])|length %}
+  {% set extras_dict = h.extras_to_dict(data) %}
+{% else %}
+  {% set extras_dict = data %}
+{% endif %}
+
+{% block package_basic_fields_custom %}
+	{{ form.markdown('spatial', label=_('Spatial'), id='field-spatial', placeholder=_('GeoJSON format'), value=extras_dict.get('spatial'), error=errors.spatial, classes=['control-full']) }}
+	<div class="control-group control-medium">
+        <div class="controls">
+			<div id='map'></div>
+		</div>
+	</div>
+	{% resource 'ecai/package_form' %}  
+{% endblock %}
+
+
