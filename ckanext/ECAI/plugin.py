@@ -273,29 +273,6 @@ class ECAIPlugin(plugins.SingletonPlugin,
                         data_dict['End_Date'] = int(DC_Coverage_T_End.split('-')[0])
             else:
                 log.debug(DC_Coverage_T_End)
-
-
-        # data_dict.update({'data_type_facet': '', 'proj_facet': '', 'language_facet': '',
-        #         'encoding_facet': '', 'theme_keyword_facets': [], 'loc_keyword_facet': []})
-        # fields = helpers.get_field_choices('dataset')
-        # for field_name in ['data_type', 'proj', 'language', 'encoding']:
-        #     value = data_dict.get(field_name)
-        #     if value:
-        #         data_dict[field_name+'_facet'] = fields[field_name][value]
-        # if data_dict.get('theme_keyword'):
-        #     data_dict['theme_keyword_facets'] = json.loads(data_dict.get('theme_keyword'))
-        # #For old schema definition
-        # for i in range(5):
-        #     field_name = 'theme_keyword_' + str(i+1)
-        #     if isinstance(data_dict.get(field_name), unicode):
-        #     data_dict['theme_keyword_facets'].append(fields['theme_keyword'].get(data_dict[field_name]))
-        # if data_dict.get('loc_keyword'):
-        #     data_dict['loc_keyword_facet'] = json.loads(data_dict.get('loc_keyword'))
-        #     if isinstance(data_dict['loc_keyword_facet'], list):
-        #         data_dict['loc_keyword_facet'] = [fields['loc_keyword'][loc_keyword] for loc_keyword in filter(None, data_dict['loc_keyword_facet'])]
-        #     #For old schema definition
-        # elif isinstance(data_dict['loc_keyword_facet'], int):
-        #         data_dict['loc_keyword_facet'] = fields['loc_keyword'][str(data_dict['loc_keyword'])]
         return data_dict
 
     def new_template(self):
