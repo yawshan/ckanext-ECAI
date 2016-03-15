@@ -333,7 +333,7 @@ class TimeSearchPlugin(plugins.SingletonPlugin):
         fq = search_params['fq']
 	log.debug("search_params: {0}".format(search_params))
         log.debug("fq: {0}".format(fq))
-        fq = '{fq} +Start_Date:[{sd} TO *],End_Date:[* TO {ed}]'.format(fq=fq, sd=start_date,ed=end_date)
+        fq = '{fq} +Start_Date:[{sd} TO *]+End_Date:[* TO {ed}]'.format(fq=fq, sd=start_date,ed=end_date)
         # fq = '{fq} +End_Date:[* TO {ed}]'.format(fq=fq, ed=end_date)
 
         log.debug("fq: {0}".format(fq))
